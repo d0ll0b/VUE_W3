@@ -17,7 +17,7 @@ methods: {
         document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`;
         window.location = 'products.html';
     }).catch((err) => {
-        console.error(err.response.data.message);
+        alert(err.response.data.message);
     })
     },
 },

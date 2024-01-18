@@ -74,10 +74,10 @@ const app = {
             if(this.new_image === true){
                 api = `${this.api_url}/api/${this.api_path}/admin/product`;
                 axios.post(api, { data: this.temp }).then((res) => {
-                    alert('success!!!');
+                    alert('新增產品成功!!!');
+                    productModal.hide();
                 }).catch((err) => {
-                    console.dir(err.response.data.message);
-                    window.location = 'login.html';
+                    alert(err.response.data.message);
                 })
             }else{
 

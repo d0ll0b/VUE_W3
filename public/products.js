@@ -10,7 +10,7 @@ const app = {
         api_path: "dollob_api",
         products: [],
         temp : {
-            images_url: [],
+            imagesUrl: [],
         }, // 用於儲存 "查看細節" Data
         new_image: false
         }
@@ -54,7 +54,7 @@ const app = {
                 case 'new': 
                     this.new_image = true;
                     this.temp = {
-                        images_url: [],
+                        imagesUrl: [],
                     };
                     productModal.show();
                     break;
@@ -69,7 +69,7 @@ const app = {
                     break;
             }
         },
-        Update_product(){
+        Update_product(id){
             let api = '';
             if(this.new_image === true){
                 api = `${this.api_url}/api/${this.api_path}/admin/product`;
@@ -77,10 +77,37 @@ const app = {
                     alert('新增產品成功!!!');
                     productModal.hide();
                 }).catch((err) => {
-                    alert(err.response.data.message);
+                    alert(err.data.message);
                 })
             }else{
-
+                api = `${this.api_url}/api/${this.api_path}/admin/product/${id}`;
+                axios.put(api, { data: this.temp }).then((res) => {
+                    alert('更新產品成功!!!');
+                    this.getData();
+                    productModal.hide();
+                }).catch((err) => {
+                    alert(err.data.message);
+                })
+            }
+        },
+        Delete_product(id){
+            let api = '';
+            api = `${this.api_url}/api/${this.api_path}/admin/product/${id}`;
+            axios.delete(api).then((res) => {
+                alert('刪除產品完成!!!');
+                this.getData();
+                delproductModal.hide();
+            }).catch((err) => {
+                alert(err.data.message);
+            })
+        },
+        ShowImagebtn(temp){
+            if (temp.hasOwnProperty('imagesUrl') && Array.isArray(temp.imagesUrl)) {
+                return true;
+            }else{
+                temp.imagesUrl = [];
+                temp.imagesUrl.push('');
+                return true;
             }
         }
     },

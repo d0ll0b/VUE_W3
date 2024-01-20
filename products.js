@@ -37,7 +37,7 @@ const app = {
                 this.getData()
             }).catch((err) => {
                 console.dir(err.response.data.message);
-                window.location = 'index.html';
+                window.location = 'login.html';
             })
         },
         getData(){
@@ -75,6 +75,7 @@ const app = {
                 api = `${this.api_url}/api/${this.api_path}/admin/product`;
                 axios.post(api, { data: this.temp }).then((res) => {
                     alert('新增產品成功!!!');
+                    this.getData();
                     productModal.hide();
                 }).catch((err) => {
                     alert(err.data.message);
@@ -102,13 +103,11 @@ const app = {
             })
         },
         ShowImagebtn(temp){
-            if (temp.hasOwnProperty('imagesUrl') && Array.isArray(temp.imagesUrl)) {
-                return true;
-            }else{
+            if (!temp.hasOwnProperty('imagesUrl') && !Array.isArray(temp.imagesUrl)) {
                 temp.imagesUrl = [];
                 temp.imagesUrl.push('');
-                return true;
             }
+            return true;
         }
     },
     

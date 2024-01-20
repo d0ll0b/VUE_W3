@@ -37,7 +37,7 @@ const app = {
                 this.getData()
             }).catch((err) => {
                 console.dir(err.response.data.message);
-                window.location = 'login.html';
+                window.location = 'index.html';
             })
         },
         getData(){
